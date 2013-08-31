@@ -1,0 +1,38 @@
+<f:be.container addJsFile="../typo3conf/ext/amazingshortlinks/Resources/Public/JavaScript/management.js">
+	<div class="typo3-fullDoc">
+		<div id="typo3-docheader">
+			<div class="typo3-docheader-functions">
+				<f:if condition="{f:count(subject: allShortlinkDomains)}">
+				<f:form action="index" method="post"><f:form.select name="selectedDomain" options="{allShortlinkDomains}" sortByOptionLabel="TRUE" optionLabelField="domainname" optionValueField="uid" />&nbsp;<f:form.submit name="formSubmit" value="Go" /></f:form>
+				</f:if>
+			</div>
+			<div class="typo3-docheader-buttons">&nbsp;</div>
+		</div>
+
+		<div id="typo3-docbody">
+			<div id="typo3-inner-docbody">
+                <h2>Short Link URL Management <f:if condition="{selectedDomain}">for {selectedDomain.domainname}</f:if></h2>
+                <f:flashMessages renderMode="div" />
+                <f:if condition="{selectedDomain}">
+                    <f:then>
+                        <f:render section="Content" />
+                    </f:then>
+                    <f:else>
+                        <f:if condition="{f:count(subject: allShortlinkDomains)}">
+                            <f:then>
+                                <p>Please select a short link domain from above.</p>
+                            </f:then>
+                            <f:else>
+                                <div class="typo3-messages">
+                                    <div class="typo3-message message-error">
+                                        <p>You have not configured any domain record ("sys_domain") to be in use as a domain for short URLs.<br />Please do so by editing any domain record via the list module and mark it as "Use as short link domain".</p>
+                                    </div>
+                                </div>
+                            </f:else>
+                        </f:if>
+                    </f:else>
+                </f:if>
+			</div>
+		</div>
+	</div>
+</f:be.container>

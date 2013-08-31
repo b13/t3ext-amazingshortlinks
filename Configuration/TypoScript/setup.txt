@@ -1,0 +1,18 @@
+ # Plugin configuration
+plugin.tx_amazingshortlinks {
+	settings {
+
+	}
+	persistence {
+		storagePid = {$plugin.tx_amazingshortlinks.persistence.storagePid}
+		classes.B13\Amazingshortlinks\Domain\Model\Domain.mapping.tableName = sys_domain
+	}
+	view {
+		templateRootPath = {$plugin.tx_amazingshortlinks.view.templateRootPath}
+		partialRootPath = {$plugin.tx_amazingshortlinks.view.partialRootPath}
+		layoutRootPath = {$plugin.tx_amazingshortlinks.view.layoutRootPath}
+	}
+}
+config.tx_extbase {
+	persistence.classes.B13\Amazingshortlinks\Domain\Model\Domain.mapping.tableName = sys_domain
+}

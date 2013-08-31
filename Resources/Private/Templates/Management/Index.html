@@ -1,0 +1,37 @@
+<f:layout name="BackendModule" />
+
+<f:section name="Content">
+	<style type="text/css">
+		p { margin-bottom: 1em;}
+	</style>
+	<h3>Add new short link</h3>
+	<f:form object="{shortLink}" objectName="shortLink" action="add">
+		<p>The link <strong>http://{selectedDomain.domainname}/</strong><f:form.textfield property="shortpath" size="20" value="{defaultPath}" /> is redirected to</p>
+		<p>
+			<f:form.select name="linktype" id="form-linktype" options="{page: 'Page ID', external: 'External URL'}" />
+			<span class="form-linktype-external"><f:form.textfield name="destinationexternal" value="" size="50" /></span>
+			<span class="form-linktype-page"><f:form.textfield name="destinationpage" value="" size="5" />&nbsp;&nbsp;<f:form.checkbox name="includesubpages" value="1" checked="1" /> create short urls for subpages as well</span>
+		</p>
+		<p><f:form.submit name="submitForm" value="Add short link" /></p>
+	</f:form>
+	<f:if condition="{existingLinks}">
+		<br /><br />
+		<h3>Existing short urls</h3>
+		<table cellpadding="0" cellspacing="0" style="width: auto;" class="typo3-dblist">
+			<tr class="t3-row-header">
+				<td>Link</td>
+				<td>Destination</td>
+				<td>Created on</td>
+				<td>&nbsp;</td>
+			</tr>
+		<f:for each="{existingLinks}" as="linkDetails">
+			<tr class="db_list_normal">
+				<td>{linkDetails.fullShortUrl}</td>
+				<td>{linkDetails.destination}</td>
+				<td><f:format.date format="d.m.Y H:i">{linkDetails.createdon}</f:format.date></td>
+				<td><f:link.action action="remove" arguments="{shortLink: linkDetails}"><span class="t3-icon t3-icon-actions t3-icon-actions-edit t3-icon-edit-delete">&nbsp;</span></f:link.action></td>
+			</tr>
+		</f:for>
+		</table>
+	</f:if>
+</f:section>
